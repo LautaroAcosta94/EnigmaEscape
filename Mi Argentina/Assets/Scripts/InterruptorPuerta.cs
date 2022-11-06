@@ -5,8 +5,7 @@ using UnityEngine;
 public class InterruptorPuerta : MonoBehaviour
 {
     //Variables
-
-    public float tiempo = 0;
+    
     public bool verificar = false;
     public float angulo;
     public GameObject puerta;

@@ -46,6 +46,7 @@ public class DragAndDrop : MonoBehaviour
                     Debug.Log("Agarraste Provincia");
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
+                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
                     manoOcupada = true;
                 }
             }
