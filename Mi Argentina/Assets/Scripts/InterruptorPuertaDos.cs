@@ -10,6 +10,9 @@ public class InterruptorPuertaDos : MonoBehaviour
     public float angulo;
     public GameObject puerta;
 
+    public AudioSource puertaAbriendo;
+
+
     void Start()
     {
 
@@ -27,6 +30,7 @@ public class InterruptorPuertaDos : MonoBehaviour
         {
                 Debug.Log("Se detecto cubo");
                 puerta.transform.rotation = Quaternion.Euler(0, -angulo, 0);
+                puertaAbriendo.Play();
         }
     }
 

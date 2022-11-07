@@ -10,6 +10,10 @@ public class InterruptorPuerta : MonoBehaviour
     public float angulo;
     public GameObject puerta;
 
+    //Sonidos Puertas
+    public AudioSource puertaAbriendo;
+    public AudioSource puertaCerrada;
+
     void Start()
     {
 
@@ -26,6 +30,7 @@ public class InterruptorPuerta : MonoBehaviour
         if(col.transform.gameObject.name == "Player")
         {
                 puerta.transform.rotation = Quaternion.Euler(0, -angulo, 0);
+                puertaAbriendo.Play();
         }
     }
 
@@ -34,6 +39,7 @@ public class InterruptorPuerta : MonoBehaviour
         if(col.transform.gameObject.name == "Player")
         {
                 puerta.transform.rotation = Quaternion.Euler(0, 0, 0);
+                puertaCerrada.Play();
         }
     }
 

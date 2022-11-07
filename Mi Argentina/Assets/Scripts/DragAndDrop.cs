@@ -11,6 +11,9 @@ public class DragAndDrop : MonoBehaviour
 
     public bool manoOcupada = false;
 
+    //Sonidos
+    public AudioSource agarraObjeto;
+    public AudioSource sueltaObjeto;
 
     void Update()
     {
@@ -27,7 +30,12 @@ public class DragAndDrop : MonoBehaviour
         }
         if(Input.GetMouseButtonUp(0))
         {
-            manoOcupada = false;
+            if(manoOcupada == true)
+            {
+                sueltaObjeto.Play();
+                manoOcupada = false;
+            }
+  
         }
         
     }
@@ -48,6 +56,7 @@ public class DragAndDrop : MonoBehaviour
                     hit.transform.position = mano.position; //Mano = Spawn
                     //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
                     manoOcupada = true;
+                    agarraObjeto.Play();
                 }
             }
 

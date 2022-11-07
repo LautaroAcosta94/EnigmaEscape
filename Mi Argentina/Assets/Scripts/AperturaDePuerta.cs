@@ -13,6 +13,8 @@ public class AperturaDePuerta : MonoBehaviour
     bool detectaJugador = false;
     bool detectaLlave = false;
 
+    public AudioSource puertaAbierta;
+
 
     // Update is called once per frame
     void Update()
@@ -30,6 +32,7 @@ public class AperturaDePuerta : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 puerta.transform.rotation = Quaternion.Euler(0, -angulo, 0);
+                puertaAbierta.Play();
             }
         }
       }

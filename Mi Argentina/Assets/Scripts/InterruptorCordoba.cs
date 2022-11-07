@@ -7,6 +7,9 @@ public class InterruptorCordoba : MonoBehaviour
     public GameObject cuboInterruptor;
     public Vector3 direccion;
 
+    public AudioSource correcto;
+    public AudioSource incorrecto;
+
 
     void Start()
     {
@@ -25,10 +28,12 @@ public class InterruptorCordoba : MonoBehaviour
         {
             Debug.Log("Colocaste la provincia correcta en la caja");
             cuboInterruptor.transform.position += direccion;
+            correcto.Play();
         }
         else
         {
             Debug.Log("La provincia colocada no es la correcta");
+            incorrecto.Play();
         }
     }
 
