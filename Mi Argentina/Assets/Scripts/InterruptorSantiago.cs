@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class InterruptorSantiago : MonoBehaviour
 {
-    //public GameObject cuboInterruptor;
+    public GameObject cuboInterruptor;
+    public Vector3 direccion;
+
 
     void Start()
     {
@@ -19,9 +21,10 @@ public class InterruptorSantiago : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.transform.gameObject.name == "Santiago")
+        if(col.transform.gameObject.name == "SantiagoDelEstero")
         {
             Debug.Log("Colocaste la provincia correcta en la caja");
+            cuboInterruptor.transform.position += direccion;
         }
         else
         {
@@ -31,9 +34,10 @@ public class InterruptorSantiago : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
-        if(col.transform.gameObject.name == "Santiago")
+        if(col.transform.gameObject.name == "SantiagoDelEstero")
         {
             Debug.Log("Haz quitado la provincia de la caja");
+            cuboInterruptor.transform.position -= direccion;
         }
     }
 }

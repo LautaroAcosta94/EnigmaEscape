@@ -51,6 +51,18 @@ public class DragAndDrop : MonoBehaviour
                 }
             }
 
+            if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+            {
+                if(hit.transform.CompareTag("Llave"))
+                {
+                    Debug.Log("Agarraste Llave");
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position; //Mano = Spawn
+                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                    manoOcupada = true;
+                }
+            }
+
         }
     }
 

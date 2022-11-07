@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class InterruptorCordoba : MonoBehaviour
 {
-    //public GameObject cuboInterruptor;
+    public GameObject cuboInterruptor;
+    public Vector3 direccion;
+
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class InterruptorCordoba : MonoBehaviour
         if(col.transform.gameObject.name == "Cordoba")
         {
             Debug.Log("Colocaste la provincia correcta en la caja");
+            cuboInterruptor.transform.position += direccion;
         }
         else
         {
@@ -34,6 +37,7 @@ public class InterruptorCordoba : MonoBehaviour
         if(col.transform.gameObject.name == "Cordoba")
         {
             Debug.Log("Haz quitado la provincia de la caja");
+            cuboInterruptor.transform.position -= direccion;
         }
     }
 }

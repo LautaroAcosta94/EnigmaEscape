@@ -39,6 +39,52 @@ public class ApagandoGravedad : MonoBehaviour
             if(col.transform.gameObject.name == "DetCajBsAs" && provincia.name == "BuenosAires")
             {
                 objetoEnCajaBsAs = true;
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+
+            if(col.transform.gameObject.name == "DetCajCor" && provincia.name == "Cordoba")
+            {
+                objetoEnCajaCor = true;
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+
+            if(col.transform.gameObject.name == "DetCajER" && provincia.name == "EntreRios")
+            {
+                objetoEnCajaER = true;
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+
+            if(col.transform.gameObject.name == "DetCajSan" && provincia.name == "SantiagoDelEstero")
+            {
+                objetoEnCajaSan = true;
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+            if(col.transform.gameObject.name == "DetCajBsAs" && provincia.name == "BuenosAires")
+            {
+                objetoEnCajaBsAs = false;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
+
+            if(col.transform.gameObject.name == "DetCajCor" && provincia.name == "Cordoba")
+            {
+                objetoEnCajaCor = false;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
+
+            if(col.transform.gameObject.name == "DetCajER" && provincia.name == "EntreRios")
+            {
+                objetoEnCajaER = false;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
+
+            if(col.transform.gameObject.name == "DetCajSan" && provincia.name == "SantiagoDelEstero")
+            {
+                objetoEnCajaSan = false;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
             }
     }
 
