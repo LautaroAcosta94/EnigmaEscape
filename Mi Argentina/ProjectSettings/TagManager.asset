@@ -7,6 +7,8 @@ TagManager:
   - Fire
   - Provincias
   - Llave
+  - Piano
+  - Creditos
   layers:
   - Default
   - TransparentFX
