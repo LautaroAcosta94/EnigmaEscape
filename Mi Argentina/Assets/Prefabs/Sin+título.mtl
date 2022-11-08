@@ -1,0 +1,36 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl _Wood_Veneer_01_1
+Ka 0.000000 0.000000 0.000000
+Kd 0.447059 0.262745 0.098039
+Ks 0.330000 0.330000 0.330000
+map_Kd Sin+título/_Wood_Veneer_01_1.jpg
+
+newmtl Formica_Beige
+Ka 0.000000 0.000000 0.000000
+Kd 0.764706 0.525490 0.301961
+Ks 0.330000 0.330000 0.330000
+map_Kd Sin+título/Formica_Beige.jpg
+
+newmtl ForegroundColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl BackColor
+Ka 0.000000 0.000000 0.000000
+Kd 0.635294 0.717647 0.776471
+Ks 0.330000 0.330000 0.330000
+
+newmtl Wood_Veneer_02
+Ka 0.000000 0.000000 0.000000
+Kd 0.968627 0.968627 0.968627
+Ks 0.330000 0.330000 0.330000
+
+newmtl Wood_Cherry_Original
+Ka 0.000000 0.000000 0.000000
+Kd 0.596078 0.337255 0.164706
+Ks 0.330000 0.330000 0.330000
+
