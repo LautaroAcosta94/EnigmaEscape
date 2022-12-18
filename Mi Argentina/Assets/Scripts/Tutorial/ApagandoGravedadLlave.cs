@@ -9,13 +9,13 @@ public class ApagandoGravedadLlave : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.transform.localScale = new Vector3(1.554646f, 6.086077f, 1.679198f);
+            gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
         }
         else if(Input.GetMouseButtonUp(0))
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             gameObject.transform.SetParent(null);
-            gameObject.transform.localScale = new Vector3(1.554646f, 6.086077f, 1.679198f);
+            gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
         }
     }
 

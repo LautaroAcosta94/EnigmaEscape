@@ -9,6 +9,18 @@ TagManager:
   - Llave
   - Piano
   - Creditos
+  - PuertaArmario1
+  - PuertaArmario2
+  - CuadroCataratas
+  - CuadroMapaArg
+  - BotonGlaciar
+  - BotonPalmar
+  - BotonCerro
+  - BotonPinguino
+  - BotonCarpincho
+  - BotonLlama
+  - CajonConLlave
+  - LlaveArmario
   layers:
   - Default
   - TransparentFX

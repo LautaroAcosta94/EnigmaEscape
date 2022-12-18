@@ -10,10 +10,15 @@ public class DragAndDrop : MonoBehaviour
     public Transform mano;
 
     public bool manoOcupada = false;
+    bool agarrasteLlave = false;
 
     //Sonidos
     public AudioSource agarraObjeto;
     public AudioSource sueltaObjeto;
+
+    //Variables para apertura de Cajon2
+    public Animator aperturaCajon2;
+    bool cajon2Abierto = false;
 
     void Update()
     {
@@ -23,7 +28,7 @@ public class DragAndDrop : MonoBehaviour
             1 = Click Derecho
             2 = Ruedita
         */
-
+        UsarLlave();
         if(Input.GetMouseButtonDown(0))
         {
             AgarrarObjeto();
@@ -35,7 +40,7 @@ public class DragAndDrop : MonoBehaviour
                 sueltaObjeto.Play();
                 manoOcupada = false;
             }
-  
+
         }
         
     }
@@ -47,9 +52,10 @@ public class DragAndDrop : MonoBehaviour
         if(manoOcupada == false)
         {
 
-            if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
-                if(hit.transform.CompareTag("Provincias"))
+                //hit provincias
+                if (hit.transform.CompareTag("Provincias"))
                 {
                     Debug.Log("Agarraste Provincia");
                     hit.transform.SetParent(mano);
@@ -58,22 +64,43 @@ public class DragAndDrop : MonoBehaviour
                     manoOcupada = true;
                     agarraObjeto.Play();
                 }
-            }
 
-            if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
-            {
-                if(hit.transform.CompareTag("Llave"))
+                //hit llave
+                if (hit.transform.CompareTag("Llave"))
                 {
-                    Debug.Log("Agarraste Llave");
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
                     //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
                     manoOcupada = true;
+                    agarrasteLlave = true;
                 }
-            }
 
+
+            }
         }
     }
 
+    void UsarLlave()
+    {
+        if(agarrasteLlave == true)
+        {
+            Debug.Log("Agarraste Llave");
+            RaycastHit hit2;
+
+            if(Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Llave");
+                agarrasteLlave = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit2, range))
+            {
+                if(hit2.transform.CompareTag("CajonConLlave"))
+                {
+                    Debug.Log("Puedes Abrir el Cajon");
+                }
+            }
+        }
+    }
 
 }
