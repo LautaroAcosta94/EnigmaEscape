@@ -31,6 +31,16 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
                     llaveEnMano = true;
                 }
             }
+
+            if(hit.transform.CompareTag("LlaveArmario"))
+            {
+                if(Input.GetMouseButtonDown(0))
+                {
+                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
+                    llaveEnMano = true;
+                }
+            }
         }
     }
 

@@ -24,13 +24,26 @@ public class Raycast : MonoBehaviour
     public Animator aperturaCajon2;
     bool cajon2Abierto = false;
 
+    //Variables para apertura de Armario
+    public Animator aperturaArmarioLlave;
+
+    public GameObject llaveArmario;
+    public GameObject llaveArmarioEnMano;
+    public GameObject candado;
+
+    bool armarioLlaveAbierto = false;
+    bool abriendoArmario = false;
+    float tiempoAnimLlave = 0;
+
+
     //VARIABLES PARA AGARRAR OBJETOS
 
     public Transform mano;
 
     public bool manoOcupada = false;
     bool agarrasteLlaveCajon = false;
-
+    bool agarrasteLlaveArmario = false;
+  
     //Sonidos
     public AudioSource agarraObjeto;
     public AudioSource sueltaObjeto;
@@ -44,6 +57,10 @@ public class Raycast : MonoBehaviour
 
         //Usar Llave Cajon
         UsarLlaveCajon();
+
+        //UsarLlaveArmario
+        UsarLlaveArmario();
+        TimerAbriendoCerrojoArmario();
 
         //Agarrar y Soltar Objetos
         if(Input.GetMouseButtonDown(0))
@@ -90,6 +107,16 @@ public class Raycast : MonoBehaviour
                     manoOcupada = true;
                     agarrasteLlaveCajon = true;
                 }
+
+                //hit llave Armario
+                if (hit.transform.CompareTag("LlaveArmario"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position; //Mano = Spawn
+                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                    manoOcupada = true;
+                    agarrasteLlaveArmario = true;
+                }
             }
         }
     }
@@ -134,6 +161,39 @@ public class Raycast : MonoBehaviour
         }
     }
 
+    void UsarLlaveArmario()
+    {
+        if(armarioLlaveAbierto == false && agarrasteLlaveArmario == true)
+        {
+            Debug.Log("Agarraste Llave Armario");
+           
+
+            if(Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Llave");
+                agarrasteLlaveArmario = false;
+            }
+
+        }
+    }
+
+    void TimerAbriendoCerrojoArmario()
+    {
+        if(abriendoArmario == true)
+        {
+            Debug.Log("COMIENZA TIMER");
+            tiempoAnimLlave += Time.deltaTime;
+            if(tiempoAnimLlave >= 4)
+            {
+                Destroy(candado);
+                Debug.Log("Armario Abierto");
+                armarioLlaveAbierto = true;
+                abriendoArmario = false;
+                tiempoAnimLlave = 0;
+            }
+        }       
+    }
+
     void RaycastObjetosUsables()
     {
         RaycastHit hit;
@@ -151,10 +211,27 @@ public class Raycast : MonoBehaviour
             }
 
             //Hit Armario 2
-            if(hit.transform.CompareTag("PuertaArmario2"))
+            if(hit.transform.CompareTag("PuertaArmario2") && agarrasteLlaveArmario == true)
             {
                 textoInteractuar.SetActive(true);
                 //Abrir Puerta Armario
+
+                    Debug.Log("Puedes Abrir el armario");
+                    if(armarioLlaveAbierto == false && Input.GetKeyDown(KeyCode.E))
+                    {
+                        Destroy(llaveArmarioEnMano);
+                        Debug.Log("ESTAS ABRIENDO ARMARIO");
+                        llaveArmario.SetActive(true);
+                        aperturaArmarioLlave.SetBool("Open", true); //AQUI 
+                        abriendoArmario = true;  
+                    }
+            }
+
+            //HIT ARMARIO 2 Abierto
+            if(hit.transform.CompareTag("PuertaArmario2") && armarioLlaveAbierto == true)
+            {
+                textoInteractuar.SetActive(true);
+                Debug.Log("ESTAS VIENDO EL ARMARIO ABIERTO");
                 if(Input.GetKeyDown(KeyCode.E))
                 {
                     if(armario2Abierto == false)
