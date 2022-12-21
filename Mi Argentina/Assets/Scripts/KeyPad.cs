@@ -7,7 +7,13 @@ public class KeyPad : MonoBehaviour
 {
     [SerializeField] public Text Ans;
     [SerializeField] public Animator Door;
-    public string Answer = "1234";
+    public string Answer = "1986";
+
+    public GameObject camara_panel;
+    public GameObject player;
+    public BoxCollider panel;
+
+  
 
     public void Number(int number)
     {
@@ -20,6 +26,9 @@ public class KeyPad : MonoBehaviour
         {
             Ans.text = "Correcto";
             Door.SetBool("Open", true);
+            panel.enabled = false;
+            player.SetActive(true);
+            camara_panel.SetActive(false);
         }
         else
         {
@@ -31,4 +40,5 @@ public class KeyPad : MonoBehaviour
     {
         Ans.text = "";
     }
+
 }

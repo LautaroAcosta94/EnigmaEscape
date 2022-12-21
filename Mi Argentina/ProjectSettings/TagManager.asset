@@ -21,6 +21,22 @@ TagManager:
   - BotonLlama
   - CajonConLlave
   - LlaveArmario
+  - TV
+  - Guitarra
+  - Radio_Con
+  - Radio_Sin
+  - sintonizando
+  - emisora60
+  - emisora65
+  - emisora70
+  - emisora75
+  - emisora80
+  - emisora85
+  - emisora90
+  - emisora95
+  - emisora100
+  - emisora105
+  - Panel
   layers:
   - Default
   - TransparentFX
@@ -30,8 +46,8 @@ TagManager:
   - UI
   - Llave
   - InterruptorCubo
-  - 
-  - 
+  - Perilla1
+  - Perilla2
   - 
   - 
   - 

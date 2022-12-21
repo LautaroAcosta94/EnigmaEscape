@@ -43,10 +43,21 @@ public class Raycast : MonoBehaviour
     public bool manoOcupada = false;
     bool agarrasteLlaveCajon = false;
     bool agarrasteLlaveArmario = false;
-  
+
     //Sonidos
     public AudioSource agarraObjeto;
     public AudioSource sueltaObjeto;
+    public AudioSource _Guitarra;
+
+    //Camaras
+    public GameObject camara_pilas;
+    public GameObject camara_radio;
+    public GameObject camara_panel;
+
+    //Player
+    public GameObject player;
+
+
 
 
 
@@ -63,13 +74,13 @@ public class Raycast : MonoBehaviour
         TimerAbriendoCerrojoArmario();
 
         //Agarrar y Soltar Objetos
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             AgarrarObjeto();
         }
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            if(manoOcupada == true)
+            if (manoOcupada == true)
             {
                 sueltaObjeto.Play();
                 manoOcupada = false;
@@ -82,7 +93,7 @@ public class Raycast : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(manoOcupada == false)
+        if (manoOcupada == false)
         {
 
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
@@ -123,12 +134,12 @@ public class Raycast : MonoBehaviour
 
     void UsarLlaveCajon()
     {
-        if(agarrasteLlaveCajon == true)
+        if (agarrasteLlaveCajon == true)
         {
             Debug.Log("Agarraste Llave");
             RaycastHit hit2;
 
-            if(Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 Debug.Log("Soltaste Llave");
                 agarrasteLlaveCajon = false;
@@ -136,12 +147,12 @@ public class Raycast : MonoBehaviour
 
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit2, range))
             {
-                if(hit2.transform.CompareTag("CajonConLlave"))
+                if (hit2.transform.CompareTag("CajonConLlave"))
                 {
                     Debug.Log("Puedes Abrir el Cajon");
-                    if(Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        if(cajon2Abierto == false)
+                        if (cajon2Abierto == false)
                         {
                             aperturaCajon2.SetBool("Open", true);
 
@@ -149,7 +160,7 @@ public class Raycast : MonoBehaviour
                         }
                         else
                         {
-                            if(Input.GetKeyDown(KeyCode.E))
+                            if (Input.GetKeyDown(KeyCode.E))
                             {
                                 aperturaCajon2.SetBool("Open", false);
                                 cajon2Abierto = false;
@@ -163,12 +174,12 @@ public class Raycast : MonoBehaviour
 
     void UsarLlaveArmario()
     {
-        if(armarioLlaveAbierto == false && agarrasteLlaveArmario == true)
+        if (armarioLlaveAbierto == false && agarrasteLlaveArmario == true)
         {
             Debug.Log("Agarraste Llave Armario");
-           
 
-            if(Input.GetMouseButtonUp(0))
+
+            if (Input.GetMouseButtonUp(0))
             {
                 Debug.Log("Soltaste Llave");
                 agarrasteLlaveArmario = false;
@@ -179,11 +190,11 @@ public class Raycast : MonoBehaviour
 
     void TimerAbriendoCerrojoArmario()
     {
-        if(abriendoArmario == true)
+        if (abriendoArmario == true)
         {
             Debug.Log("COMIENZA TIMER");
             tiempoAnimLlave += Time.deltaTime;
-            if(tiempoAnimLlave >= 4)
+            if (tiempoAnimLlave >= 4)
             {
                 Destroy(candado);
                 Debug.Log("Armario Abierto");
@@ -191,17 +202,17 @@ public class Raycast : MonoBehaviour
                 abriendoArmario = false;
                 tiempoAnimLlave = 0;
             }
-        }       
+        }
     }
 
     void RaycastObjetosUsables()
     {
         RaycastHit hit;
 
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             //Hit Armario 1
-            if(hit.transform.CompareTag("PuertaArmario1"))
+            if (hit.transform.CompareTag("PuertaArmario1"))
             {
                 textoInteractuar.SetActive(true);
             }
@@ -211,30 +222,30 @@ public class Raycast : MonoBehaviour
             }
 
             //Hit Armario 2
-            if(hit.transform.CompareTag("PuertaArmario2") && agarrasteLlaveArmario == true)
+            if (hit.transform.CompareTag("PuertaArmario2") && agarrasteLlaveArmario == true)
             {
                 textoInteractuar.SetActive(true);
                 //Abrir Puerta Armario
 
-                    Debug.Log("Puedes Abrir el armario");
-                    if(armarioLlaveAbierto == false && Input.GetKeyDown(KeyCode.E))
-                    {
-                        Destroy(llaveArmarioEnMano);
-                        Debug.Log("ESTAS ABRIENDO ARMARIO");
-                        llaveArmario.SetActive(true);
-                        aperturaArmarioLlave.SetBool("Open", true); //AQUI 
-                        abriendoArmario = true;  
-                    }
+                Debug.Log("Puedes Abrir el armario");
+                if (armarioLlaveAbierto == false && Input.GetKeyDown(KeyCode.E))
+                {
+                    Destroy(llaveArmarioEnMano);
+                    Debug.Log("ESTAS ABRIENDO ARMARIO");
+                    llaveArmario.SetActive(true);
+                    aperturaArmarioLlave.SetBool("Open", true); //AQUI 
+                    abriendoArmario = true;
+                }
             }
 
             //HIT ARMARIO 2 Abierto
-            if(hit.transform.CompareTag("PuertaArmario2") && armarioLlaveAbierto == true)
+            if (hit.transform.CompareTag("PuertaArmario2") && armarioLlaveAbierto == true)
             {
                 textoInteractuar.SetActive(true);
                 Debug.Log("ESTAS VIENDO EL ARMARIO ABIERTO");
-                if(Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if(armario2Abierto == false)
+                    if (armario2Abierto == false)
                     {
                         aperturaPertaIzqArmario2.SetBool("Open", true);
                         aperturaPertaDerArmario2.SetBool("Open", true);
@@ -243,7 +254,7 @@ public class Raycast : MonoBehaviour
                     }
                     else
                     {
-                        if(Input.GetKeyDown(KeyCode.E))
+                        if (Input.GetKeyDown(KeyCode.E))
                         {
                             aperturaPertaIzqArmario2.SetBool("Open", false);
                             aperturaPertaDerArmario2.SetBool("Open", false);
@@ -254,21 +265,21 @@ public class Raycast : MonoBehaviour
             }
 
             //Hit CuadroCataratas
-            if(hit.transform.CompareTag("CuadroCataratas"))
+            if (hit.transform.CompareTag("CuadroCataratas"))
             {
                 textoInteractuar.SetActive(true);
 
                 //Abrir Cuadro
-                if(Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if(cuadroAbierto == false)
+                    if (cuadroAbierto == false)
                     {
                         aperturaCuadroCataratas.SetBool("Open", true);
                         cuadroAbierto = true;
                     }
                     else
                     {
-                        if(Input.GetKeyDown(KeyCode.E))
+                        if (Input.GetKeyDown(KeyCode.E))
                         {
                             aperturaCuadroCataratas.SetBool("Open", false);
                             cuadroAbierto = false;
@@ -278,13 +289,13 @@ public class Raycast : MonoBehaviour
             }
 
             //Hit Cajon Con Llave
-            if(hit.transform.CompareTag("CajonConLlave"))
+            if (hit.transform.CompareTag("CajonConLlave"))
             {
                 textoInteractuar.SetActive(true);
             }
 
             //Hit CuadroMapaArg
-            if(hit.transform.CompareTag("CuadroMapaArg"))
+            if (hit.transform.CompareTag("CuadroMapaArg"))
             {
                 textoInteractuar.SetActive(true);
 
@@ -292,7 +303,7 @@ public class Raycast : MonoBehaviour
 
 
             //Hit CuadroMapaArg
-            if(hit.transform.CompareTag("CuadroMapaArg"))
+            if (hit.transform.CompareTag("CuadroMapaArg"))
             {
                 textoInteractuar.SetActive(true);
             }
@@ -300,51 +311,114 @@ public class Raycast : MonoBehaviour
             //Hit BotonesCuadros
 
             //BotonGlaciar
-            if(hit.transform.CompareTag("BotonGlaciar"))
+            if (hit.transform.CompareTag("BotonGlaciar"))
             {
                 textoInteractuar.SetActive(true);
             }
 
 
             //BotonPalmar
-            if(hit.transform.CompareTag("BotonPalmar"))
+            if (hit.transform.CompareTag("BotonPalmar"))
             {
                 textoInteractuar.SetActive(true);
             }
 
-              
+
             //BotonCerro
-            if(hit.transform.CompareTag("BotonCerro"))
+            if (hit.transform.CompareTag("BotonCerro"))
             {
                 textoInteractuar.SetActive(true);
             }
 
 
             //BotonPinguino
-            if(hit.transform.CompareTag("BotonPinguino"))
+            if (hit.transform.CompareTag("BotonPinguino"))
             {
                 textoInteractuar.SetActive(true);
             }
 
             //BotonCarpincho
-            if(hit.transform.CompareTag("BotonCarpincho"))
+            if (hit.transform.CompareTag("BotonCarpincho"))
             {
                 textoInteractuar.SetActive(true);
             }
 
             //BotonLlama
-            if(hit.transform.CompareTag("BotonLlama"))
+            if (hit.transform.CompareTag("BotonLlama"))
             {
                 textoInteractuar.SetActive(true);
             }
 
+            //HitTV
+            if (hit.transform.CompareTag("TV"))
+            {
+                textoInteractuar.SetActive(true);
+            }
 
+            //HitGuitarra
+            if (hit.transform.CompareTag("Guitarra"))
+            {
+                textoInteractuar.SetActive(true);
+                {
 
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        _Guitarra.Play();
+                    }
+
+                }
+            }
+            //HitRadioSinPilas
+            if (hit.transform.CompareTag("Radio_Sin"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        player.SetActive(false);
+                        camara_pilas.SetActive(true);
+                    }
+
+                }
+            }
+            //HitRadioConPilas
+            if (hit.transform.CompareTag("Radio_Con"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        player.SetActive(false);
+                        camara_radio.SetActive(true);
+                    }
+
+                }
+            }
+            //HitPiano
+            if (hit.transform.CompareTag("Piano"))
+            {
+                textoInteractuar.SetActive(true);
+            }
+            //HitPanel
+            if (hit.transform.CompareTag("Panel"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.None;
+                        player.SetActive(false);
+                        camara_panel.SetActive(true);
+                    }
+                }
+            }
         }
         else
         {
             textoInteractuar.SetActive(false);
-        }
-
+        }       
     }
 }

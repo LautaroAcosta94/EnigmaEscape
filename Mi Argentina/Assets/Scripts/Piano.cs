@@ -5,12 +5,11 @@ using UnityEngine.Video;
 
 public class Piano : MonoBehaviour
 {
-    public float range = 50f;
+    public float range = 5f;
     public Camera fpsCam;
-    public GameObject Pian;
-    public bool encender = false;
-    public GameObject cam1;
-    public GameObject cam2;
+    public GameObject collider_piano;
+    public GameObject camara_piano;
+    public GameObject player;
 
     void Update()
     {
@@ -21,40 +20,23 @@ public class Piano : MonoBehaviour
             2 = Ruedita
         */
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Tocar();
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            NoTocar();
-        }
-
+        Tocar();
     }
 
-    void NoTocar()
-    {
-        if (encender == true && cam2.activeInHierarchy)
-        {
-            Cursor.visible = false;
-            cam1.SetActive(true);
-            cam2.SetActive(false);
-            encender = false;
-        }
-    }
-
-void Tocar()
+    void Tocar()
     {
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            if (hit.transform.CompareTag("Piano") && encender == false && cam1.activeInHierarchy)
+            if (hit.transform.CompareTag("Piano"))
             {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                cam1.SetActive(false);
-                cam2.SetActive(true);
-                encender = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    player.SetActive(false);
+                    camara_piano.SetActive(true);
+                }
             }
         }
     }
