@@ -15,9 +15,6 @@ public class FirstPersonCharacter : MonoBehaviour
     //Variables para el movimiento del mouse en X
     float cameraPitch = 0.0f;
 
-    //Variable para ocultar el cursor
-    [SerializeField] bool lockCursor = true;
-
     //Variables para el movimiento del personaje
     [SerializeField] float velocidad = 6f;
     [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
@@ -35,11 +32,13 @@ public class FirstPersonCharacter : MonoBehaviour
         //Llama al character controller
         controller = GetComponent<CharacterController>();
         //Llama al metodo para ocultar el cursor al iniciar el juego
-        OcultarCursor();
     }
 
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         //Llama a la variable para mirar con el mouse
         UpdateMouseLook();
 
@@ -62,16 +61,6 @@ public class FirstPersonCharacter : MonoBehaviour
         playerCamera.localEulerAngles = Vector3.right * cameraPitch;
 
         transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
-    }
-
-    //Metodo para ocultar el cursor
-    void OcultarCursor()
-    {
-        if(lockCursor)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
     }
 
     //Metodo para mover al jugador

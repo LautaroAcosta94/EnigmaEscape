@@ -38,6 +38,12 @@ TagManager:
   - emisora105
   - Panel
   - Pilas
+  - Mate
+  - Placa
+  - Manija
+  - Panel2
+  - PuertaSala
+  - BotonMesa
   layers:
   - Default
   - TransparentFX
