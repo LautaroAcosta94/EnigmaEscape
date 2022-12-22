@@ -37,6 +37,7 @@ TagManager:
   - emisora100
   - emisora105
   - Panel
+  - Pilas
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,8 @@ public class KeyPad : MonoBehaviour
             panel.enabled = false;
             player.SetActive(true);
             camara_panel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {

@@ -35,6 +35,34 @@ public class Raycast : MonoBehaviour
     bool abriendoArmario = false;
     float tiempoAnimLlave = 0;
 
+    //VARIABLES PARA PUZZLE CUADROS
+
+        //Variables Cambio Colores Botones Cuadros
+
+        int ColorGlaciar = 1;
+        int ColorElPalmar = 1;
+        int ColorCerro = 1;
+        int ColorCarpincho = 1;
+        int ColorPinguino = 1;
+        int ColorLlama = 1;
+
+            //GameObjects de botones
+            public GameObject BotonGlaciar;
+            public GameObject BotonElPalmar;
+            public GameObject BotonCerro;
+            public GameObject BotonCarpincho;
+            public GameObject BotonPinguino;
+            public GameObject BotonLlama;
+
+            //Booleans para detectar color correcto
+            bool colorGlaciarCorrecto = false;
+            bool colorPalmarCorrecto = false;
+            bool colorCerroCorrecto = false;
+            bool colorCarpinchoCorrecto = false;
+            bool colorPinguinoCorrecto = false;
+            bool colorLlamaCorrecto = false;
+
+
 
     //VARIABLES PARA AGARRAR OBJETOS
 
@@ -72,6 +100,9 @@ public class Raycast : MonoBehaviour
         //UsarLlaveArmario
         UsarLlaveArmario();
         TimerAbriendoCerrojoArmario();
+
+        //Puzzle Cuadros
+        PuzzleCuadros();
 
         //Agarrar y Soltar Objetos
         if (Input.GetMouseButtonDown(0))
@@ -120,14 +151,7 @@ public class Raycast : MonoBehaviour
                 }
 
                 //hit llave Armario
-                if (hit.transform.CompareTag("LlaveArmario"))
-                {
-                    hit.transform.SetParent(mano);
-                    hit.transform.position = mano.position; //Mano = Spawn
-                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
-                    manoOcupada = true;
-                    agarrasteLlaveArmario = true;
-                }
+
             }
         }
     }
@@ -205,12 +229,32 @@ public class Raycast : MonoBehaviour
         }
     }
 
+    void PuzzleCuadros()
+    {
+        if(colorGlaciarCorrecto == true && colorPalmarCorrecto == true && colorCerroCorrecto == true && colorCarpinchoCorrecto == true
+             && colorPinguinoCorrecto == true && colorLlamaCorrecto == true)
+        {
+            Debug.Log("RESOLVISTE EL ROMPECABEZAS");
+        }
+    }
+
     void RaycastObjetosUsables()
     {
         RaycastHit hit;
 
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
+            //Hit LlaveArmario
+            if (Input.GetMouseButtonDown(0) && hit.transform.CompareTag("LlaveArmario"))
+            {
+                    Debug.Log("ESTAS AGARRANDO LLAVE");
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position; //Mano = Spawn
+                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                    manoOcupada = true;
+                    agarrasteLlaveArmario = true;
+            }        
+
             //Hit Armario 1
             if (hit.transform.CompareTag("PuertaArmario1"))
             {
@@ -314,6 +358,37 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("BotonGlaciar"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorGlaciar += 1;
+                    if(ColorGlaciar == 4)
+                    {
+                        ColorGlaciar = 1;
+                    }
+
+                    switch (ColorGlaciar)
+                    {
+                        case 3:
+                            BotonGlaciar.GetComponent<Renderer>().material.color = Color.red;
+                            BotonGlaciar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonGlaciar.GetComponent<Light>().color = Color.red;
+                            colorGlaciarCorrecto = false;
+                            break;
+                        case 2:
+                            BotonGlaciar.GetComponent<Renderer>().material.color = Color.green;
+                            BotonGlaciar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonGlaciar.GetComponent<Light>().color = Color.green;
+                            colorGlaciarCorrecto = false;
+                            break;
+                        case 1:
+                            BotonGlaciar.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonGlaciar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonGlaciar.GetComponent<Light>().color = Color.blue;
+                            colorGlaciarCorrecto = true;
+                            break;                           
+                    }
+                }
             }
 
 
@@ -321,6 +396,37 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("BotonPalmar"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorElPalmar  += 1;
+                    if(ColorElPalmar  == 4)
+                    {
+                        ColorElPalmar  = 1;
+                    }
+
+                    switch (ColorElPalmar)
+                    {
+                        case 3:
+                            BotonElPalmar.GetComponent<Renderer>().material.color = Color.red;
+                            BotonElPalmar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonElPalmar.GetComponent<Light>().color = Color.red;
+                            colorPalmarCorrecto = false;
+                            break;
+                        case 2:
+                            BotonElPalmar.GetComponent<Renderer>().material.color = Color.green;
+                            BotonElPalmar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonElPalmar.GetComponent<Light>().color = Color.green;
+                            colorPalmarCorrecto = true;
+                            break;
+                        case 1:
+                            BotonElPalmar.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonElPalmar.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonElPalmar.GetComponent<Light>().color = Color.blue;
+                            colorPalmarCorrecto = false;
+                            break;                           
+                    }
+                }
             }
 
 
@@ -328,6 +434,38 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("BotonCerro"))
             {
                 textoInteractuar.SetActive(true);
+
+                
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorCerro  += 1;
+                    if(ColorCerro  == 4)
+                    {
+                        ColorCerro  = 1;
+                    }
+
+                    switch (ColorCerro)
+                    {
+                        case 3:
+                            BotonCerro.GetComponent<Renderer>().material.color = Color.red;
+                            BotonCerro.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonCerro.GetComponent<Light>().color = Color.red;
+                            colorCerroCorrecto = true;
+                            break;
+                        case 2:
+                            BotonCerro.GetComponent<Renderer>().material.color = Color.green;
+                            BotonCerro.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonCerro.GetComponent<Light>().color = Color.green;
+                            colorCerroCorrecto = false;
+                            break;
+                        case 1:
+                            BotonCerro.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonCerro.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonCerro.GetComponent<Light>().color = Color.blue;
+                            colorCerroCorrecto = false;
+                            break;                           
+                    }
+                }
             }
 
 
@@ -335,18 +473,111 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("BotonPinguino"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorPinguino  += 1;
+                    if(ColorPinguino  == 4)
+                    {
+                        ColorPinguino  = 1;
+                    }
+
+                    switch (ColorPinguino)
+                    {
+                        case 3:
+                            BotonPinguino.GetComponent<Renderer>().material.color = Color.red;
+                            BotonPinguino.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonPinguino.GetComponent<Light>().color = Color.red;
+                            colorPinguinoCorrecto = false;
+                            break;
+                        case 2:
+                            BotonPinguino.GetComponent<Renderer>().material.color = Color.green;
+                            BotonPinguino.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonPinguino.GetComponent<Light>().color = Color.green;
+                            colorPinguinoCorrecto = false;
+                            break;
+                        case 1:
+                            BotonPinguino.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonPinguino.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonPinguino.GetComponent<Light>().color = Color.blue;
+                            colorPinguinoCorrecto = true;
+                            break;                           
+                    }
+                }
             }
 
             //BotonCarpincho
             if (hit.transform.CompareTag("BotonCarpincho"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorCarpincho  += 1;
+                    if(ColorCarpincho  == 4)
+                    {
+                        ColorCarpincho  = 1;
+                    }
+
+                    switch (ColorCarpincho)
+                    {
+                        case 3:
+                            BotonCarpincho.GetComponent<Renderer>().material.color = Color.red;
+                            BotonCarpincho.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonCarpincho.GetComponent<Light>().color = Color.red;
+                            colorCarpinchoCorrecto = false;
+                            break;
+                        case 2:
+                            BotonCarpincho.GetComponent<Renderer>().material.color = Color.green;
+                            BotonCarpincho.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonCarpincho.GetComponent<Light>().color = Color.green;
+                            colorCarpinchoCorrecto = true;
+                            break;
+                        case 1:
+                            BotonCarpincho.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonCarpincho.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonCarpincho.GetComponent<Light>().color = Color.blue;
+                            colorCarpinchoCorrecto = false;
+                            break;                           
+                    }
+                }
             }
 
             //BotonLlama
             if (hit.transform.CompareTag("BotonLlama"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    ColorLlama  += 1;
+                    if(ColorLlama  == 4)
+                    {
+                        ColorLlama  = 1;
+                    }
+
+                    switch (ColorLlama)
+                    {
+                        case 3:
+                            BotonLlama.GetComponent<Renderer>().material.color = Color.red;
+                            BotonLlama.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                            BotonLlama.GetComponent<Light>().color = Color.red;
+                            colorLlamaCorrecto = true;
+                            break;
+                        case 2:
+                            BotonLlama.GetComponent<Renderer>().material.color = Color.green;
+                            BotonLlama.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green);
+                            BotonLlama.GetComponent<Light>().color = Color.green;
+                            colorLlamaCorrecto = false;
+                            break;
+                        case 1:
+                            BotonLlama.GetComponent<Renderer>().material.color = Color.blue;
+                            BotonLlama.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.blue);
+                            BotonLlama.GetComponent<Light>().color = Color.blue;
+                            colorLlamaCorrecto = false;
+                            break;                           
+                    }
+                }
             }
 
             //HitTV
