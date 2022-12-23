@@ -1,0 +1,54 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 5 5.0.5.1846 Release
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl cbc001_wood2__Vr
+Ka 0.0117647 0.0117647 0.0117647
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+illum 2
+Ns 8
+map_Kd CBC00102.jpg
+map_bump CBC00103.jpg
+bump CBC00103.jpg
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl cbc001_wood1__Vr
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 8
+map_Kd CBC00101.jpg
+map_bump CBC00104.jpg
+bump CBC00104.jpg
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl cbc001_metall__V
+Ka 0 0 0
+Kd 0.262745 0.176471 0.0431373
+Ks 1 1 1
+illum 2
+Ns 2048
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 

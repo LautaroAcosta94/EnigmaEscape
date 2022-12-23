@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PuzzleCuadroProvincias : MonoBehaviour
 {
+    public AudioSource colocar;
 
     //Variables Raycast
 
@@ -197,6 +198,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provTDFenMano);
                     provTDF.SetActive(true);
                     tdfColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSantaCruz == true)
@@ -204,6 +206,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSCenMano);
                     provSC.SetActive(true);
                     scColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaChubut == true)
@@ -211,6 +214,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provChuEnMano);
                     provChu.SetActive(true);
                     chuColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaRioNegro == true)
@@ -218,6 +222,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provRNenMano);
                     provRN.SetActive(true);
                     rnColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaNeuquen == true)
@@ -225,6 +230,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provNeuEnMano);
                     provNeu.SetActive(true);
                     neuColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaLaPampa == true)
@@ -232,6 +238,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provLPenMano);
                     provLP.SetActive(true);
                     lpColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaBuenosAires == true)
@@ -239,6 +246,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provBAenMano);
                     provBA.SetActive(true);
                     baColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaMendoza == true)
@@ -246,6 +254,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provMenEnMano);
                     provMen.SetActive(true);
                     menColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSanLuis == true)
@@ -253,6 +262,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSLenMano);
                     provSL.SetActive(true);
                     slColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaCordoba == true)
@@ -260,6 +270,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provCordEnMano);
                     provCord.SetActive(true);
                     cordColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSantaFe == true)
@@ -267,6 +278,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSFenMano);
                     provSF.SetActive(true);
                     sfColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaEntreRios == true)
@@ -274,6 +286,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provERenMano);
                     provER.SetActive(true);
                     erColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaCorrientes == true)
@@ -281,6 +294,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provCorEnMano);
                     provCor.SetActive(true);
                     corColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaMisiones == true)
@@ -288,6 +302,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provMisEnMano);
                     provMis.SetActive(true);
                     misColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSanJuan == true)
@@ -295,6 +310,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSJenMano);
                     provSJ.SetActive(true);
                     sjColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaLaRioja == true)
@@ -302,6 +318,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provLRenMano);
                     provLR.SetActive(true);
                     lrColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaCatamarca == true)
@@ -309,6 +326,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provCataEnMano);
                     provCata.SetActive(true);
                     cataColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaTucuman == true)
@@ -316,6 +334,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provTucuEnMano);
                     provTucu.SetActive(true);
                     tucuColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSantiagoDelEstero == true)
@@ -323,6 +342,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSDEenMano);
                     provSDE.SetActive(true);
                     sdeColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaChaco == true)
@@ -330,6 +350,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provChaEnMano);
                     provCha.SetActive(true);
                     chaColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaFormosa == true)
@@ -337,6 +358,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provForEnMano);
                     provFor.SetActive(true);
                     forColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaSalta == true)
@@ -344,6 +366,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provSalEnMano);
                     provSal.SetActive(true);
                     salColocada = true;
+                    colocar.Play();
                 }
 
                 if(Input.GetKeyDown(KeyCode.E) && detectaJujuy == true)
@@ -351,6 +374,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
                     Destroy(provJujEnMano);
                     provJuj.SetActive(true);
                     jujColocada = true;
+                    colocar.Play();
                 }
             }
         }

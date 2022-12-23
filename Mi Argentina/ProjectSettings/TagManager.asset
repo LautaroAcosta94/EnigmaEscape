@@ -44,6 +44,8 @@ TagManager:
   - Panel2
   - PuertaSala
   - BotonMesa
+  - Pista1
+  - Pista2
   layers:
   - Default
   - TransparentFX

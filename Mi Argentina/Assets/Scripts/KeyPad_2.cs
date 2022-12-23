@@ -18,7 +18,12 @@ public class KeyPad_2 : MonoBehaviour
     public AudioSource codigoCorrecto;
     public AudioSource codigoIncorrecto;
 
+    public GameObject textoPuerta;
 
+    void Update()
+    {
+        textoPuerta.SetActive(false); 
+    }
 
     public void Number(int number)
     {
@@ -50,6 +55,7 @@ public class KeyPad_2 : MonoBehaviour
     IEnumerator cambioCamaras()
     {
         yield return new WaitForSeconds(1f);
+        Pausa.noPausa = false;
         puertaAbierta.Play();
         Door.SetBool("Open", true);
         player.SetActive(true);

@@ -87,17 +87,21 @@ public class Raycast : MonoBehaviour
     public AudioSource manija;
     public AudioSource puertaCerrada;
     public AudioSource botonMesa;
+    public AudioSource pistaNotas;
 
     //Camaras
     public GameObject camara_radio;
     public GameObject camara_panel;
     public GameObject camara_panel2;
+    public GameObject camara_pista1;
+    public GameObject camara_pista2;
 
     //Player
     public GameObject player;
 
-    //BoleanoRadio
+    //Boleanos
     bool radioActivada = false;
+    bool armarioAbiertoBoton = false;
 
     //TextosCanvas
     public GameObject textoRadio;
@@ -106,8 +110,18 @@ public class Raycast : MonoBehaviour
     public GameObject textoMate;
     public GameObject textoBoton;
 
+    //Animator
+    public Animator armarioCuadros;
+    public Animator cofre;
+
+    //GameObjects
+    public GameObject cofreActivo;
 
 
+    void Start()
+    {
+        
+    }
 
 
     // Update is called once per frame
@@ -134,7 +148,6 @@ public class Raycast : MonoBehaviour
         {
             if (manoOcupada == true)
             {
-                sueltaObjeto.Play();
                 manoOcupada = false;
             }
 
@@ -264,7 +277,8 @@ public class Raycast : MonoBehaviour
         if(colorGlaciarCorrecto == true && colorPalmarCorrecto == true && colorCerroCorrecto == true && colorCarpinchoCorrecto == true
              && colorPinguinoCorrecto == true && colorLlamaCorrecto == true)
         {
-            Debug.Log("RESOLVISTE EL ROMPECABEZAS");
+            cofre.SetBool("Open", true);
+            cofreActivo.SetActive(true);
         }
     }
 
@@ -285,16 +299,6 @@ public class Raycast : MonoBehaviour
                     agarrasteLlaveArmario = true;
                     agarraObjeto.Play();
             }        
-
-            //Hit Armario 1
-            if (hit.transform.CompareTag("PuertaArmario1"))
-            {
-                textoInteractuar.SetActive(true);
-            }
-            else
-            {
-                textoInteractuar.SetActive(false);
-            }
 
             //Hit Armario 2
             if (hit.transform.CompareTag("PuertaArmario2") && agarrasteLlaveArmario == true)
@@ -653,6 +657,7 @@ public class Raycast : MonoBehaviour
                         {
                             player.SetActive(false);
                             camara_radio.SetActive(true);
+                            Pausa.noPausa = true;
                         }
                         else
                         {
@@ -682,6 +687,7 @@ public class Raycast : MonoBehaviour
                         Cursor.lockState = CursorLockMode.None;
                         player.SetActive(false);
                         camara_panel.SetActive(true);
+                        Pausa.noPausa = true;
                     }
                 }
             }
@@ -697,6 +703,7 @@ public class Raycast : MonoBehaviour
                         Cursor.lockState = CursorLockMode.None;
                         player.SetActive(false);
                         camara_panel2.SetActive(true);
+                        Pausa.noPausa = true;
                     }
                 }
             }
@@ -744,17 +751,49 @@ public class Raycast : MonoBehaviour
                 }
             }
 
-            //HitBotonMesa
-            if (hit.transform.CompareTag("BotonMesa"))
+            //HitPista1
+            if (hit.transform.CompareTag("Pista1"))
             {
                 textoInteractuar.SetActive(true);
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        pistaNotas.Play();
+                        camara_pista1.SetActive(true);
+                        player.SetActive(false);
+                        Pausa.noPausa = true;
+                    }
+                }
+            }
+
+            //HitPista2
+            if (hit.transform.CompareTag("Pista2"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        pistaNotas.Play();
+                        camara_pista2.SetActive(true);
+                        player.SetActive(false);
+                        Pausa.noPausa = true;
+                    }
+                }
+            }
+
+            //HitBotonMesa
+            if (hit.transform.CompareTag("BotonMesa"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+                    if (Input.GetKeyDown(KeyCode.E) && armarioAbiertoBoton == false)
+                    {
                         if (Mate.placaMesa == true)
                         {
                             botonMesa.Play();
-                            Debug.Log("Abrir Armario");
+                            armarioCuadros.SetBool("Open", true);
+                            armarioAbiertoBoton = true;
+                            armarioAbierto.Play();
                         }
                         else
                         {
@@ -762,6 +801,10 @@ public class Raycast : MonoBehaviour
                             textoBoton.SetActive(true);
                             StartCoroutine("textoOFF");
                         }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.E) && armarioAbiertoBoton == true)
+                    {
+                        botonMesa.Play();
                     }
                 }
             }
@@ -780,7 +823,7 @@ public class Raycast : MonoBehaviour
 
     IEnumerator textoOFF()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2.5f);
         textoRadio.SetActive(false);
         textoPuerta.SetActive(false);
         textoCaja.SetActive(false);

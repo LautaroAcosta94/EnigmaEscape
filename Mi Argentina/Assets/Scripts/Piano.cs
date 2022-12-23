@@ -36,6 +36,7 @@ public class Piano : MonoBehaviour
                     Cursor.lockState = CursorLockMode.None;
                     player.SetActive(false);
                     camara_piano.SetActive(true);
+                    Pausa.noPausa = true;
                 }
             }
         }

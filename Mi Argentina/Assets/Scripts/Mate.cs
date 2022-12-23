@@ -6,12 +6,8 @@ public class Mate : MonoBehaviour
 {
     static public bool placaMesa = false;
     public GameObject botonMesa;
+    public BoxCollider placa;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -25,7 +21,6 @@ public class Mate : MonoBehaviour
         {
             placaMesa = false;
             botonMesa.GetComponent<Renderer>().material.color = Color.red;
-            Debug.Log("placa activada");
         }
     }
 
@@ -35,7 +30,7 @@ public class Mate : MonoBehaviour
         {
             placaMesa = true;
             botonMesa.GetComponent<Renderer>().material.color = Color.green;
-            Debug.Log("placa desactivada");
+            Destroy(placa);
         }
     }
 }
