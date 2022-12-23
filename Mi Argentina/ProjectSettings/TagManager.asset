@@ -51,32 +51,32 @@ TagManager:
   - Player
   - Water
   - UI
-  - Llave
+  - Jujuy
   - InterruptorCubo
   - Perilla1
   - Perilla2
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - TierraDelFuego
+  - SantaCruz
+  - Chubut
+  - RioNegro
+  - Neuquen
+  - LaPampa
+  - BuenosAires
+  - Mendoza
+  - SanLuis
+  - Cordoba
+  - SantaFe
+  - EntreRios
+  - Corrientes
+  - Misiones
+  - SanJuan
+  - LaRioja
+  - Catamarca
+  - Tucuman
+  - SantiagoDelEstero
+  - Chaco
+  - Formosa
+  - Salta
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -28,7 +28,7 @@ public class ApagadoDeGravedadMate : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                    //gameObject.transform.localScale = new Vector3(0.1679668f, 0.121061f, 0.1522376f);
                     mateEnMano = true;
                 }
             }
@@ -43,7 +43,7 @@ public class ApagadoDeGravedadMate : MonoBehaviour
             {
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 gameObject.transform.SetParent(null);
-                gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                gameObject.transform.localScale = new Vector3(0.3679668f, 0.321061f, 0.3522376f);
                 mateEnMano = false;
             }
         }
