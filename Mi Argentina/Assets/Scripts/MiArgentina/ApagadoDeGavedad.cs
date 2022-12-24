@@ -28,6 +28,7 @@ public class ApagadoDeGavedad : MonoBehaviour
                 if(Input.GetMouseButtonDown(0))
                 {
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    gameObject.GetComponent<MeshCollider>().isTrigger = true;
                     gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
                     provinciaEnMano = true;
                 }
@@ -42,6 +43,7 @@ public class ApagadoDeGavedad : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                gameObject.GetComponent<MeshCollider>().isTrigger = false;
                 gameObject.transform.SetParent(null);
                 gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
                 provinciaEnMano = false;

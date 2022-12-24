@@ -8,6 +8,12 @@ public class Raycast : MonoBehaviour
     public Camera fpsCam;
     public GameObject textoInteractuar;
 
+    //Radio y pilas
+
+    bool pilasEnMano = false;
+    public GameObject pilasMano;
+    public GameObject pilasRadio;
+
     //Variables para apertura de Armario 2
     public Animator aperturaPertaIzqArmario2;
     public Animator aperturaPertaDerArmario2;
@@ -34,6 +40,24 @@ public class Raycast : MonoBehaviour
     bool armarioLlaveAbierto = false;
     bool abriendoArmario = false;
     float tiempoAnimLlave = 0;
+
+    //GameObjects Puzzle Escudo Nacional 
+    public GameObject ovaloEscudoEnMano;
+    public GameObject ovaloEscudo;
+    public GameObject picaEscudoEnMano;
+    public GameObject picaEscudo;
+    public GameObject gorroEscudoEnMano;
+    public GameObject gorroEscudo;
+    public GameObject manosEscudoEnMano;
+    public GameObject manosEscudo;
+    public GameObject laurelesEscudoEnMano;
+    public GameObject laurelesEscudo;
+    public GameObject solEscudoEnMano;
+    public GameObject solEscudo;
+
+    //Animators mueble dormitorio
+    public Animator aperturaPertaIzqMueble;
+    public Animator aperturaPertaDerMueble;
 
     //VARIABLES PARA PUZZLE CUADROS
 
@@ -72,6 +96,20 @@ public class Raycast : MonoBehaviour
     bool agarrasteLlaveCajon = false;
     bool agarrasteLlaveArmario = false;
     bool agarrasteMate = false;
+    bool agarrasteOvaloEscudo = false;
+    bool agarrastePicaEscudo = false;
+    bool agarrasteGorroEscudo = false;
+    bool agarrasteManosEscudo = false;
+    bool agarrasteLaurelesEscudo = false;
+    bool agarrasteSolEscudo = false;
+
+    //bools para detectar piezas colocadas escudo
+    bool ovaloEscudoColocado = false;
+    bool picaEscudoColocado = false;
+    bool gorroEscudoColocado = false;
+    bool manosEscudoColocado = false;
+    bool laurelesEscudoColocado = false;
+    bool solEscudoColocado = false;
 
     //Sonidos
     public AudioSource agarraObjeto;
@@ -129,6 +167,15 @@ public class Raycast : MonoBehaviour
     {
         RaycastObjetosUsables();
 
+        //puzzle escudo Nacional
+        UsarOvaloEscudo();
+        UsarPicaEscudo();
+        UsarGorroEscudo();
+        UsarManosEscudo();
+        UsarLaurelesEscudo();
+        UsarSolEscudo();
+        PuzzleCuadroEscudo();
+
         //Usar Llave Cajon
         UsarLlaveCajon();
 
@@ -185,6 +232,72 @@ public class Raycast : MonoBehaviour
                     agarraObjeto.Play();
                 }
 
+                //hit ovalo escudo
+
+                if(hit.transform.CompareTag("OvaloEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrasteOvaloEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
+                //hit pica 
+
+                if(hit.transform.CompareTag("PicaEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrastePicaEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
+                //hit gorro frijio
+
+                if(hit.transform.CompareTag("GorroEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrasteGorroEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
+                //hit manos escudo
+
+                if(hit.transform.CompareTag("ManosEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrasteManosEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
+                //hit laureles escudo
+
+                if(hit.transform.CompareTag("LaurelesEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrasteLaurelesEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
+                //hit sol escudo
+
+                if(hit.transform.CompareTag("SolEscudoNacional"))
+                {
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position;
+                    manoOcupada = true;
+                    agarrasteSolEscudo  = true;
+                    agarraObjeto.Play();
+                }
+
                 //hit mate
                 if (hit.transform.CompareTag("Mate"))
                 {
@@ -197,6 +310,215 @@ public class Raycast : MonoBehaviour
                 }
             }
         }
+    }
+
+    void UsarOvaloEscudo()
+    {
+        if (agarrasteOvaloEscudo == true)
+        {
+            Debug.Log("Agarraste Ovalo Escudo");
+            RaycastHit hitOvalo;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Ovalo Escudo");
+                agarrasteOvaloEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitOvalo, range))
+            {
+                if (hitOvalo.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (ovaloEscudoColocado == false)
+                        {
+                          Destroy(ovaloEscudoEnMano);
+                          ovaloEscudo.SetActive(true);
+                          ovaloEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void UsarPicaEscudo()
+    {
+        if (agarrastePicaEscudo == true)
+        {
+            Debug.Log("Agarraste Pica Escudo");
+            RaycastHit hitPica;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Pica Escudo");
+                agarrastePicaEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitPica, range))
+            {
+                if (hitPica.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (picaEscudoColocado == false)
+                        {
+                          Destroy(picaEscudoEnMano);
+                          picaEscudo.SetActive(true);
+                          picaEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void UsarGorroEscudo()
+    {
+        if (agarrasteGorroEscudo == true)
+        {
+            Debug.Log("Agarraste Gorro Escudo");
+            RaycastHit hitGorro;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Gorro Escudo");
+                agarrasteGorroEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitGorro, range))
+            {
+                if (hitGorro.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (gorroEscudoColocado == false)
+                        {
+                          Destroy(gorroEscudoEnMano);
+                          gorroEscudo.SetActive(true);
+                          gorroEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void UsarManosEscudo()
+    {
+        if (agarrasteManosEscudo == true)
+        {
+            Debug.Log("Agarraste Manos Escudo");
+            RaycastHit hitManos;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Manos Escudo");
+                agarrasteManosEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitManos, range))
+            {
+                if (hitManos.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (manosEscudoColocado == false)
+                        {
+                          Destroy(manosEscudoEnMano);
+                          manosEscudo.SetActive(true);
+                          manosEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void UsarLaurelesEscudo()
+    {
+        if (agarrasteLaurelesEscudo == true)
+        {
+            Debug.Log("Agarraste Laureles Escudo");
+            RaycastHit hitLaureles;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Laureles Escudo");
+                agarrasteLaurelesEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitLaureles, range))
+            {
+                if (hitLaureles.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (laurelesEscudoColocado == false)
+                        {
+                          Destroy(laurelesEscudoEnMano);
+                          laurelesEscudo.SetActive(true);
+                          laurelesEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void UsarSolEscudo()
+    {
+        if (agarrasteSolEscudo == true)
+        {
+            Debug.Log("Agarraste Sol Escudo");
+            RaycastHit hitSol;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Sol Escudo");
+                agarrasteSolEscudo = false;
+            }
+
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hitSol, range))
+            {
+                if (hitSol.transform.CompareTag("CuadroEscudoNacional"))
+                {
+                    Debug.Log("Puedes Colocar Objeto");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        if (solEscudoColocado == false)
+                        {
+                          Destroy(solEscudoEnMano);
+                          solEscudo.SetActive(true);
+                          solEscudoColocado = true;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    void PuzzleCuadroEscudo()
+    {
+        if(ovaloEscudoColocado == true && picaEscudoColocado == true && gorroEscudoColocado == true && 
+            manosEscudoColocado == true && laurelesEscudoColocado == true && solEscudoColocado == true)
+            {
+                Debug.Log("PUZZLE ESCUDO RESUELTO");
+                aperturaPertaIzqMueble.SetBool("Open", true);
+                aperturaPertaDerMueble.SetBool("Open", true);
+            }
     }
 
     void UsarLlaveCajon()
@@ -645,11 +967,38 @@ public class Raycast : MonoBehaviour
                 }
             }
 
+            //hit pilas 
+
+            if(hit.transform.CompareTag("Pilas"))
+            {
+                textoInteractuar.SetActive(true);
+
+                if(Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("Agarraste Pilas");
+                    hit.transform.SetParent(mano);
+                    hit.transform.position = mano.position; //Mano = Spawn
+                    //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);                    
+                    manoOcupada = true;
+                    agarraObjeto.Play();
+                    pilasEnMano = true;
+                }
+            }
+
             //HitRadioConPilas
             if (hit.transform.CompareTag("Radio_Con"))
             {
                 textoInteractuar.SetActive(true);
+
+                if(pilasEnMano == true)
                 {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Destroy(pilasMano);
+                        pilasRadio.SetActive(true);
+                        radioActivada = true;
+                    }
+                }
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
@@ -667,7 +1016,7 @@ public class Raycast : MonoBehaviour
                         
                     }
 
-                }
+                
             }
 
             //HitPiano

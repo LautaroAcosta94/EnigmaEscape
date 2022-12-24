@@ -46,6 +46,13 @@ TagManager:
   - BotonMesa
   - Pista1
   - Pista2
+  - CuadroEscudoNacional
+  - GorroEscudoNacional
+  - ManosEscudoNacional
+  - LaurelesEscudoNacional
+  - SolEscudoNacional
+  - PicaEscudoNacional
+  - OvaloEscudoNacional
   layers:
   - Default
   - TransparentFX

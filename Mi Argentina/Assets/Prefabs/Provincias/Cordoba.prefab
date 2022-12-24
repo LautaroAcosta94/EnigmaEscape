@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3333691149783101184}
   - component: {fileID: 111986164786515898}
   - component: {fileID: 111986164786515901}
+  - component: {fileID: -4374427345857846498}
+  - component: {fileID: 2011219449286807358}
   m_Layer: 0
   m_Name: Cordoba
   m_TagString: Untagged
@@ -1393,6 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b652ad3d62afafd4e94507bf239af61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  provincia: {fileID: 0}
 --- !u!33 &111986164786515898
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1412,6 +1415,36 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!54 &-4374427345857846498
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111986164786515900}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2011219449286807358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111986164786515900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e70d1680635f2564f9a03bca73eaa783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 5
+  fpsCam: {fileID: 0}
