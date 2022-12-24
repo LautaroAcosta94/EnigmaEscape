@@ -57,6 +57,8 @@ TagManager:
   - Copa
   - Pista3
   - PuertaDeSalida
+  - PuertaDormitorio
+  - LlaveDormitorio
   layers:
   - Default
   - TransparentFX
