@@ -8,6 +8,8 @@ public class ApagadoDeGavedad : MonoBehaviour
     public float range = 5f;
     public Camera fpsCam;
 
+    GameObject provinciaAgarrada;
+
     bool provinciaEnMano = false;
 
     // Update is called once per frame
@@ -27,10 +29,19 @@ public class ApagadoDeGavedad : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.GetComponent<MeshCollider>().isTrigger = true;
-                    gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
-                    provinciaEnMano = true;
+                        provinciaAgarrada = hit.transform.gameObject;
+                        provinciaAgarrada.GetComponent<Rigidbody>().isKinematic = true;
+                        provinciaAgarrada.GetComponent<MeshCollider>().isTrigger = true;
+                        provinciaAgarrada.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                        provinciaEnMano = true;
+                }
+            }
+
+            if(hit.transform.CompareTag("CuadroMapaArg") && provinciaEnMano == true)
+            {
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    provinciaEnMano = false;
                 }
             }
         }
@@ -42,12 +53,18 @@ public class ApagadoDeGavedad : MonoBehaviour
         {
             if(Input.GetMouseButtonUp(0))
             {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                gameObject.GetComponent<MeshCollider>().isTrigger = false;
-                gameObject.transform.SetParent(null);
-                gameObject.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                provinciaAgarrada.GetComponent<Rigidbody>().isKinematic = false;
+                provinciaAgarrada.GetComponent<MeshCollider>().isTrigger = false;
+                provinciaAgarrada.transform.SetParent(null);
+                provinciaAgarrada.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
+                //provinciaAgarrada = null;
                 provinciaEnMano = false;
             }
+            if(provinciaEnMano == false)
+            {
+                provinciaAgarrada = null;
+            }
         }
+
     }
 }

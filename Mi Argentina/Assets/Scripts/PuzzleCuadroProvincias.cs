@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PuzzleCuadroProvincias : MonoBehaviour
 {
     public AudioSource colocar;
+
+    //Puerta de salida
+    public Animator aperturaPuertaSalida;
+    bool puertaSalidaAbierta = false;
+    public AudioSource puertaAbriendo;
+    public AudioSource puertaCerrada;
+    public GameObject textoSalida;
 
     //Variables Raycast
 
@@ -191,6 +199,22 @@ public class PuzzleCuadroProvincias : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
+
+            if(hit.transform.CompareTag("PuertaDeSalida"))
+            {
+                if(Input.GetKeyDown(KeyCode.E) && puertaSalidaAbierta == true)
+                {
+                    SceneManager.LoadScene("GanasteMiArgentina");
+                }
+
+                if(Input.GetKeyDown(KeyCode.E) && puertaSalidaAbierta == false)
+                {
+                    puertaCerrada.Play();
+                    textoSalida.SetActive(true);
+                    StartCoroutine("textoOFF");
+                }
+            }
+
             if (hit.transform.CompareTag("CuadroMapaArg"))
             {
                 if(Input.GetKeyDown(KeyCode.E) && detectaTierraDelFuego == true)
@@ -389,12 +413,21 @@ public class PuzzleCuadroProvincias : MonoBehaviour
            && lrColocada == true && cataColocada == true && tucuColocada == true && sdeColocada == true && chaColocada == true
            && forColocada == true && salColocada == true && jujColocada == true)
         {
+            puertaAbriendo.Play();
             Debug.Log("COMPLETASTE PUZZLE FINAL");
+            aperturaPuertaSalida.SetBool("Open", true);
+            puertaSalidaAbierta = true;
         }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, rangoDeAlerta);
+    }
+
+    IEnumerator textoOFF()
+    {
+        yield return new WaitForSeconds(2.5f);
+        textoSalida.SetActive(false);
     }
 }

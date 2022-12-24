@@ -56,6 +56,7 @@ TagManager:
   - Cajones
   - Copa
   - Pista3
+  - PuertaDeSalida
   layers:
   - Default
   - TransparentFX

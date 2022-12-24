@@ -8,6 +8,8 @@ public class Raycast : MonoBehaviour
     public Camera fpsCam;
     public GameObject textoInteractuar;
 
+
+
     //Radio y pilas
 
     bool pilasEnMano = false;
@@ -124,6 +126,7 @@ public class Raycast : MonoBehaviour
     public AudioSource pistaNotas;
     public AudioSource armarioDormitorio;
     public AudioSource colocarObjeto;
+
 
     //Camaras
     public GameObject camara_radio;
@@ -1094,8 +1097,14 @@ public class Raycast : MonoBehaviour
                 textoInteractuar.SetActive(true);
             }
 
-                //HitPuertaSalaMusica
-                if (hit.transform.CompareTag("PuertaSala"))
+            //Hit puerta salida
+            if (hit.transform.CompareTag("PuertaDeSalida"))
+            {
+                textoInteractuar.SetActive(true);
+            }
+
+            //HitPuertaSalaMusica
+            if (hit.transform.CompareTag("PuertaSala"))
             {
                 textoInteractuar.SetActive(true);
                 {
