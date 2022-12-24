@@ -7,7 +7,7 @@ public class KeyPad_2 : MonoBehaviour
 {
     [SerializeField] public Text Ans;
     [SerializeField] public Animator Door;
-    public string Answer = "1234";
+    public string Answer = "181222";
 
     public GameObject camara_panel2;
     public GameObject player;

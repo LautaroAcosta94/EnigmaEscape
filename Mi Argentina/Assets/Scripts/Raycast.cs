@@ -26,10 +26,6 @@ public class Raycast : MonoBehaviour
     //RayCast Llave
     public GameObject llave;
 
-    //Variables para apertura de Cajon2
-    public Animator aperturaCajon2;
-    bool cajon2Abierto = false;
-
     //Variables para apertura de Armario
     public Animator aperturaArmarioLlave;
 
@@ -126,6 +122,8 @@ public class Raycast : MonoBehaviour
     public AudioSource puertaCerrada;
     public AudioSource botonMesa;
     public AudioSource pistaNotas;
+    public AudioSource armarioDormitorio;
+    public AudioSource colocarObjeto;
 
     //Camaras
     public GameObject camara_radio;
@@ -133,6 +131,7 @@ public class Raycast : MonoBehaviour
     public GameObject camara_panel2;
     public GameObject camara_pista1;
     public GameObject camara_pista2;
+    public GameObject camara_pista3;
 
     //Player
     public GameObject player;
@@ -147,6 +146,7 @@ public class Raycast : MonoBehaviour
     public GameObject textoCaja;
     public GameObject textoMate;
     public GameObject textoBoton;
+    public GameObject textoCajon;
 
     //Animator
     public Animator armarioCuadros;
@@ -155,6 +155,9 @@ public class Raycast : MonoBehaviour
     //GameObjects
     public GameObject cofreActivo;
 
+    //BoxColliders
+    public BoxCollider cerraduraCajon;
+    public BoxCollider cajon2;
 
     void Start()
     {
@@ -517,7 +520,7 @@ public class Raycast : MonoBehaviour
             {
                 Debug.Log("PUZZLE ESCUDO RESUELTO");
                 aperturaPertaIzqMueble.SetBool("Open", true);
-                aperturaPertaDerMueble.SetBool("Open", true);
+                aperturaPertaDerMueble.SetBool("Open", true);              
             }
     }
 
@@ -526,37 +529,10 @@ public class Raycast : MonoBehaviour
         if (agarrasteLlaveCajon == true)
         {
             Debug.Log("Agarraste Llave");
-            RaycastHit hit2;
-
             if (Input.GetMouseButtonUp(0))
             {
                 Debug.Log("Soltaste Llave");
                 agarrasteLlaveCajon = false;
-            }
-
-            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit2, range))
-            {
-                if (hit2.transform.CompareTag("CajonConLlave"))
-                {
-                    Debug.Log("Puedes Abrir el Cajon");
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        if (cajon2Abierto == false)
-                        {
-                            aperturaCajon2.SetBool("Open", true);
-
-                            cajon2Abierto = true;
-                        }
-                        else
-                        {
-                            if (Input.GetKeyDown(KeyCode.E))
-                            {
-                                aperturaCajon2.SetBool("Open", false);
-                                cajon2Abierto = false;
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -693,10 +669,36 @@ public class Raycast : MonoBehaviour
                 }
             }
 
+            //Hit Cajones
+            if (hit.transform.CompareTag("Cajones"))
+            {
+                textoInteractuar.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.gameObject.GetComponent<AperturaCajones>().AbreCierra();
+                }
+            }
+
             //Hit Cajon Con Llave
             if (hit.transform.CompareTag("CajonConLlave"))
             {
                 textoInteractuar.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (agarrasteLlaveCajon == true)
+                    {
+                        llaveArmarioUnlock.Play();
+                        cerraduraCajon.enabled = false;
+                        cajon2.enabled = true;
+                        Destroy(llave);
+                    }
+                    else
+                    {
+                        textoCajon.SetActive(true);
+                        StartCoroutine("textoOFF");
+                        puertaCerrada.Play();
+                    }
+                }     
             }
 
             //Hit CuadroMapaArg
@@ -994,6 +996,7 @@ public class Raycast : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        colocarObjeto.Play();
                         Destroy(pilasMano);
                         pilasRadio.SetActive(true);
                         radioActivada = true;
@@ -1082,12 +1085,17 @@ public class Raycast : MonoBehaviour
                         textoMate.SetActive(true);
                         StartCoroutine("textoOFF");
                     }
-                }
-              
+                }    
             }
 
-            //HitPuertaSalaMusica
-            if (hit.transform.CompareTag("PuertaSala"))
+            //HitCopa
+            if (hit.transform.CompareTag("Copa"))
+            {
+                textoInteractuar.SetActive(true);
+            }
+
+                //HitPuertaSalaMusica
+                if (hit.transform.CompareTag("PuertaSala"))
             {
                 textoInteractuar.SetActive(true);
                 {
@@ -1124,6 +1132,21 @@ public class Raycast : MonoBehaviour
                     {
                         pistaNotas.Play();
                         camara_pista2.SetActive(true);
+                        player.SetActive(false);
+                        Pausa.noPausa = true;
+                    }
+                }
+            }
+
+            //HitPista3
+            if (hit.transform.CompareTag("Pista3"))
+            {
+                textoInteractuar.SetActive(true);
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        pistaNotas.Play();
+                        camara_pista3.SetActive(true);
                         player.SetActive(false);
                         Pausa.noPausa = true;
                     }
@@ -1178,5 +1201,6 @@ public class Raycast : MonoBehaviour
         textoCaja.SetActive(false);
         textoMate.SetActive(false);
         textoBoton.SetActive(false);
+        textoCajon.SetActive(false);
     }
 }
