@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiArgentina.unity
     guid: f82e2ad67702d884c8d30fb4fb9a6d64
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GanasteMiArgentina.unity
     guid: 6ae891347492d654daa0f3558125c252
   - enabled: 0

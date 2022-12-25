@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Raycast : MonoBehaviour
 {
@@ -1164,6 +1165,12 @@ public class Raycast : MonoBehaviour
                 textoAgarrar.SetActive(true);
             }
 
+            //Hit Cuadro Escudo Nacional
+            if (hit.transform.CompareTag("CuadroEscudoNacional"))
+            {
+                textoInteractuar.SetActive(true);
+            }
+
             //HitPiano
             if (hit.transform.CompareTag("Piano"))
             {
@@ -1252,11 +1259,23 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("PuertaDeSalida"))
             {
                 textoInteractuar.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
+             if (PuzzleCuadroProvincias.puertaSalidaAbierta == true)
                 {
-                    textoSalida.SetActive(true);
-                    StartCoroutine("textoOFF");
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        SceneManager.LoadScene("GanasteMiArgentina");
+                    }
                 }
+
+             if (PuzzleCuadroProvincias.puertaSalidaAbierta == false)
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        puertaCerrada.Play();
+                        textoSalida.SetActive(true);
+                        StartCoroutine("textoOFF");
+                    }
+                }   
             }
 
             //HitPuertaSalaMusica
@@ -1371,5 +1390,6 @@ public class Raycast : MonoBehaviour
         textoCajon.SetActive(false);
         textoPuerta2.SetActive(false);
         textoEntrada.SetActive(false);
+        textoSalida.SetActive(false);
     }
 }
