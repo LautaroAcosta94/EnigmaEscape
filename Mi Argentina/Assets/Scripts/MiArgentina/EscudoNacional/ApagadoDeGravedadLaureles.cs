@@ -10,6 +10,8 @@ public class ApagadoDeGravedadLaureles : MonoBehaviour
 
     bool laurelesEnMano = false;
 
+    public GameObject laurelesback;
+
     void Update()
     {
         ApagarGravedad();
@@ -28,6 +30,8 @@ public class ApagadoDeGravedadLaureles : MonoBehaviour
                 {
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     gameObject.transform.localScale = new Vector3(0.17806f, 0.17806f, 0.17806f);
+                    gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                    laurelesback.GetComponent<BoxCollider>().isTrigger = true;
                     laurelesEnMano = true;
                 }
             }
@@ -42,6 +46,8 @@ public class ApagadoDeGravedadLaureles : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                laurelesback.GetComponent<BoxCollider>().isTrigger = false;
                 gameObject.transform.SetParent(null);
                 gameObject.transform.localScale = new Vector3(0.17806f, 0.17806f, 0.17806f);
                 laurelesEnMano = false;

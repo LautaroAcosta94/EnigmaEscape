@@ -28,6 +28,7 @@ public class ApagadoGravedadOvalo : MonoBehaviour
                 {
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     gameObject.transform.localScale = new Vector3(0.1166827f, 0.1166827f, 0.1166827f);
+                    gameObject.GetComponent<BoxCollider>().isTrigger = true;
                     ovaloEnMano = true;
                 }
             }
@@ -42,6 +43,7 @@ public class ApagadoGravedadOvalo : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                gameObject.GetComponent<BoxCollider>().isTrigger = false;
                 gameObject.transform.SetParent(null);
                 gameObject.transform.localScale = new Vector3(0.1166827f, 0.1166827f, 0.1166827f);
                 ovaloEnMano = false;
