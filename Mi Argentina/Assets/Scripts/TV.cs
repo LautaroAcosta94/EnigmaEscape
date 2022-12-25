@@ -11,6 +11,7 @@ public class TV : MonoBehaviour
     public bool encender = false;
     public AudioSource TV_ON;
     public AudioSource TV_OFF;
+    public AudioSource musicaAmbiente;
 
     void Update()
     {
@@ -37,13 +38,15 @@ public class TV : MonoBehaviour
             {
                 if (!encender)
                 {
+                    musicaAmbiente.volume = 0.1f;
                     TV_ON.Play();                                  
                     Tele.SetActive(true);
                     encender = true;
                     //Tele.GetComponent<VideoPlayer>().enabled = true;
                 }
                 else
-                {                 
+                {
+                    musicaAmbiente.volume = 0.3f;
                     TV_OFF.Play();                    
                     Tele.SetActive(false);
                     encender = false;

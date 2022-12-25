@@ -126,6 +126,7 @@ public class Raycast : MonoBehaviour
     public AudioSource botonMesa;
     public AudioSource pistaNotas;
     public AudioSource colocarObjeto;
+    public AudioSource musicaAmbiente;
 
 
     //Camaras
@@ -153,6 +154,8 @@ public class Raycast : MonoBehaviour
     public GameObject textoPuerta2;
     public GameObject textoEntrada;
     public GameObject textoSalida;
+
+    bool textoActivo = false;
 
     //Animator
     public Animator armarioCuadros;
@@ -1046,6 +1049,8 @@ public class Raycast : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        musicaAmbiente.Pause();
+                        StartCoroutine("PausaMusica");
                         _Guitarra.Play();
                     }
 
@@ -1090,6 +1095,7 @@ public class Raycast : MonoBehaviour
                     {
                         if (radioActivada == true)
                         {
+                            musicaAmbiente.Pause();
                             player.SetActive(false);
                             camara_radio.SetActive(true);
                             Pausa.noPausa = true;
@@ -1214,10 +1220,11 @@ public class Raycast : MonoBehaviour
             {
                 textoInteractuar.SetActive(true);
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E) && textoActivo == false)
                     {
                         manija.Play();
                         textoCaja.SetActive(true);
+                        textoActivo = true;
                         StartCoroutine("textoOFF");
                     }                     
                 }
@@ -1229,10 +1236,13 @@ public class Raycast : MonoBehaviour
                 textoInteractuar.SetActive(true);
                 textoAgarrar.SetActive(true);
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E) && textoActivo == false)
                     {
+                        musicaAmbiente.volume = 0.1f;
+                        StartCoroutine("Volumen");
                         tomarMate.Play();
                         textoMate.SetActive(true);
+                        textoActivo = true;
                         StartCoroutine("textoOFF");
                     }
                 }    
@@ -1248,9 +1258,10 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("PuertaEntrada"))
             {
                 textoInteractuar.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) && textoActivo == false)
                 {
                     textoEntrada.SetActive(true);
+                    textoActivo = true;
                     StartCoroutine("textoOFF");
                 }
             }
@@ -1267,12 +1278,13 @@ public class Raycast : MonoBehaviour
                     }
                 }
 
-             if (PuzzleCuadroProvincias.puertaSalidaAbierta == false)
+             if (PuzzleCuadroProvincias.puertaSalidaAbierta == false && textoActivo == false)
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         puertaCerrada.Play();
                         textoSalida.SetActive(true);
+                        textoActivo = true;
                         StartCoroutine("textoOFF");
                     }
                 }   
@@ -1283,10 +1295,11 @@ public class Raycast : MonoBehaviour
             {
                 textoInteractuar.SetActive(true);
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E) && textoActivo == false)
                     {
                         puertaCerrada.Play();
                         textoPuerta.SetActive(true);
+                        textoActivo = true;
                         StartCoroutine("textoOFF");
                     }
                 }
@@ -1379,6 +1392,18 @@ public class Raycast : MonoBehaviour
         llaveArmarioUnlock.Play();
     }
 
+    IEnumerator PausaMusica()
+    {
+        yield return new WaitForSeconds(2);
+        musicaAmbiente.UnPause();
+    }
+
+    IEnumerator Volumen()
+    {
+        yield return new WaitForSeconds(2);
+        musicaAmbiente.volume = 0.3f;
+    }
+
     IEnumerator textoOFF()
     {
         yield return new WaitForSeconds(3f);
@@ -1391,5 +1416,6 @@ public class Raycast : MonoBehaviour
         textoPuerta2.SetActive(false);
         textoEntrada.SetActive(false);
         textoSalida.SetActive(false);
+        textoActivo = false;
     }
 }

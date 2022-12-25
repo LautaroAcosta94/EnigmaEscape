@@ -11,12 +11,14 @@ public class Pausa : MonoBehaviour
     public GameObject gameOver;
     public GameObject camaraPausa;
     public GameObject player;
+    public AudioSource musicaAmbiente;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        noPausa = false;
         menuPausa.SetActive(false);
         gameOver.SetActive(false);
     }
@@ -48,6 +50,7 @@ public class Pausa : MonoBehaviour
 
     public void PauseGame()
     {
+        musicaAmbiente.volume = 0.1f;
         menuPausa.SetActive(true);
         pausaActiva = true;
         player.SetActive(false);
@@ -57,6 +60,7 @@ public class Pausa : MonoBehaviour
 
     public void ResumeGame()
     {
+        musicaAmbiente.volume = 0.3f;
         menuPausa.SetActive(false);
         pausaActiva = false;
         player.SetActive(true);
@@ -73,12 +77,12 @@ public class Pausa : MonoBehaviour
     {
         if (TimeController.enMarcha == false)
         {
+            musicaAmbiente.Stop();
             noPausa = true;
             menuPausa.SetActive(false);
             gameOver.SetActive(true);
             player.SetActive(false);
             camaraPausa.SetActive(true);
-            Time.timeScale = 0f;
         }
     }
 }

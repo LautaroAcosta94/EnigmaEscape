@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Copa : MonoBehaviour
@@ -12,6 +13,7 @@ public class Copa : MonoBehaviour
 
     public AudioSource muchachos;
     public AudioSource pirotecnia;
+    public AudioSource musicaAmbiente;
 
     public GameObject textoCampeones;
 
@@ -37,6 +39,8 @@ public class Copa : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E) && campeones == false)
                 {
+                    StartCoroutine("Volumen");
+                    musicaAmbiente.Pause();
                     muchachos.Play();
                     pirotecnia.Play();
                     chispas.SetActive(true);
@@ -57,5 +61,11 @@ public class Copa : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         textoCampeones.SetActive(false);
+    }
+
+    IEnumerator Volumen()
+    {
+        yield return new WaitForSeconds(15);
+        musicaAmbiente.UnPause();
     }
 }

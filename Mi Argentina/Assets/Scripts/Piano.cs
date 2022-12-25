@@ -10,6 +10,7 @@ public class Piano : MonoBehaviour
     public GameObject collider_piano;
     public GameObject camara_piano;
     public GameObject player;
+    public AudioSource musicaAmbiente;
 
     void Update()
     {
@@ -32,6 +33,7 @@ public class Piano : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    musicaAmbiente.Pause();
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                     player.SetActive(false);

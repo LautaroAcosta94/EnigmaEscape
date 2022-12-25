@@ -5,14 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class IniciarPartida : MonoBehaviour
 {
-  public void Iniciar()
+    public Animator crossfade;
+
+    public void Iniciar()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("MiArgentina");
+        StartCoroutine("Transicion"); 
     }
 
     public void Salir()
     {
         Application.Quit();
+    }
+
+    IEnumerator Transicion()
+    {
+        crossfade.SetBool("Open", true);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("MiArgentina");
     }
 }
