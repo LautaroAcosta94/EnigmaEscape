@@ -27,7 +27,6 @@ public class ApagadoGravedadPica : MonoBehaviour
                 if(Input.GetMouseButtonDown(0))
                 {
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.GetComponent<BoxCollider>().isTrigger = true;
                     gameObject.transform.localScale = new Vector3(0.17806f, 0.17806f, 0.17806f);
                     picaEnMano = true;
                 }
@@ -43,7 +42,6 @@ public class ApagadoGravedadPica : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                gameObject.GetComponent<BoxCollider>().isTrigger = false;
                 gameObject.transform.SetParent(null);
                 gameObject.transform.localScale = new Vector3(0.17806f, 0.17806f, 0.17806f);
                 picaEnMano = false;
