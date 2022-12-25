@@ -124,7 +124,6 @@ public class Raycast : MonoBehaviour
     public AudioSource puertaCerrada;
     public AudioSource botonMesa;
     public AudioSource pistaNotas;
-    public AudioSource armarioDormitorio;
     public AudioSource colocarObjeto;
 
 
@@ -150,6 +149,9 @@ public class Raycast : MonoBehaviour
     public GameObject textoMate;
     public GameObject textoBoton;
     public GameObject textoCajon;
+    public GameObject textoPuerta2;
+    public GameObject textoEntrada;
+    public GameObject textoSalida;
 
     //Animator
     public Animator armarioCuadros;
@@ -157,17 +159,17 @@ public class Raycast : MonoBehaviour
 
     //GameObjects
     public GameObject cofreActivo;
+    public GameObject armarioDormitorioActivo;
 
     //BoxColliders
     public BoxCollider cerraduraCajon;
     public BoxCollider cajon2;
+    public BoxCollider puertaDormitorio;
 
     //Llave dormitorio
     public GameObject textoAgarrar;
     public GameObject llaveDormitorioEnMano;
     bool agarrasteLlaveDormitorio = false;
-    bool abristePuertaDormitorio = false;
-    bool sonoPuertaDormitorio = false;
     public Animator aperturaPuertaDormitorio;
     public AudioSource puertaAbriendo;
 
@@ -181,6 +183,8 @@ public class Raycast : MonoBehaviour
     void Update()
     {
         RaycastObjetosUsables();
+
+        SoltarLlaveDormitorio();
 
         //puzzle escudo Nacional
         UsarOvaloEscudo();
@@ -225,11 +229,10 @@ public class Raycast : MonoBehaviour
 
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
-                //hit LlaveDormitorio y uso
+                //hit LlaveArmario y uso
 
                 if (hit.transform.CompareTag("LlaveArmario"))
                 {
-                        textoAgarrar.SetActive(true);
                         if(Input.GetMouseButtonDown(0))
                         {
                         Debug.Log("ESTAS AGARRANDO LLAVE");
@@ -245,7 +248,6 @@ public class Raycast : MonoBehaviour
                 //hit provincias
                 if (hit.transform.CompareTag("Provincias"))
                 {
-                    textoAgarrar.SetActive(true);
                     Debug.Log("Agarraste Provincia");
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
@@ -257,7 +259,6 @@ public class Raycast : MonoBehaviour
                 //hit llave
                 if (hit.transform.CompareTag("Llave"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
                     //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
@@ -270,7 +271,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("OvaloEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -282,7 +282,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("PicaEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -294,7 +293,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("GorroEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -306,7 +304,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("ManosEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -318,7 +315,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("LaurelesEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -330,7 +326,6 @@ public class Raycast : MonoBehaviour
 
                 if(hit.transform.CompareTag("SolEscudoNacional"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position;
                     manoOcupada = true;
@@ -341,7 +336,6 @@ public class Raycast : MonoBehaviour
                 //hit mate
                 if (hit.transform.CompareTag("Mate"))
                 {
-                    textoAgarrar.SetActive(true);
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
                     //hit.transform.localScale = new Vector3(0.14782f, 0.14782f, 0.14782f);
@@ -375,9 +369,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (ovaloEscudoColocado == false)
                         {
-                          Destroy(ovaloEscudoEnMano);
-                          ovaloEscudo.SetActive(true);
-                          ovaloEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(ovaloEscudoEnMano);
+                            ovaloEscudo.SetActive(true);
+                            ovaloEscudoColocado = true;
                         }
 
                     }
@@ -408,9 +403,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (picaEscudoColocado == false)
                         {
-                          Destroy(picaEscudoEnMano);
-                          picaEscudo.SetActive(true);
-                          picaEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(picaEscudoEnMano);
+                            picaEscudo.SetActive(true);
+                            picaEscudoColocado = true;
                         }
 
                     }
@@ -441,9 +437,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (gorroEscudoColocado == false)
                         {
-                          Destroy(gorroEscudoEnMano);
-                          gorroEscudo.SetActive(true);
-                          gorroEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(gorroEscudoEnMano);
+                            gorroEscudo.SetActive(true);
+                            gorroEscudoColocado = true;
                         }
 
                     }
@@ -474,9 +471,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (manosEscudoColocado == false)
                         {
-                          Destroy(manosEscudoEnMano);
-                          manosEscudo.SetActive(true);
-                          manosEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(manosEscudoEnMano);
+                            manosEscudo.SetActive(true);
+                            manosEscudoColocado = true;
                         }
 
                     }
@@ -507,9 +505,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (laurelesEscudoColocado == false)
                         {
-                          Destroy(laurelesEscudoEnMano);
-                          laurelesEscudo.SetActive(true);
-                          laurelesEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(laurelesEscudoEnMano);
+                            laurelesEscudo.SetActive(true);
+                            laurelesEscudoColocado = true;
                         }
 
                     }
@@ -540,9 +539,10 @@ public class Raycast : MonoBehaviour
                     {
                         if (solEscudoColocado == false)
                         {
-                          Destroy(solEscudoEnMano);
-                          solEscudo.SetActive(true);
-                          solEscudoColocado = true;
+                            colocarObjeto.Play();
+                            Destroy(solEscudoEnMano);
+                            solEscudo.SetActive(true);
+                            solEscudoColocado = true;
                         }
 
                     }
@@ -557,6 +557,7 @@ public class Raycast : MonoBehaviour
             manosEscudoColocado == true && laurelesEscudoColocado == true && solEscudoColocado == true)
             {
                 Debug.Log("PUZZLE ESCUDO RESUELTO");
+                armarioDormitorioActivo.SetActive(true);
                 aperturaPertaIzqMueble.SetBool("Open", true);
                 aperturaPertaDerMueble.SetBool("Open", true);              
             }
@@ -591,22 +592,6 @@ public class Raycast : MonoBehaviour
         }
     }
 
-    void UsarLlaveDormitorio()
-    {
-        if (abristePuertaDormitorio == false && agarrasteLlaveDormitorio == true)
-        {
-            Debug.Log("Agarraste Llave Armario");
-
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                Debug.Log("Soltaste Llave");
-                agarrasteLlaveDormitorio = false; //ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            }
-
-        }
-    }
-
     void TimerAbriendoCerrojoArmario()
     {
         if (abriendoArmario == true)
@@ -634,6 +619,18 @@ public class Raycast : MonoBehaviour
         }
     }
 
+    void SoltarLlaveDormitorio()
+    {
+        if (agarrasteLlaveDormitorio == true)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Debug.Log("Soltaste Llave");
+                agarrasteLlaveDormitorio = false;
+            }
+        }      
+    }
+
     void RaycastObjetosUsables()
     {
         RaycastHit hit;
@@ -645,9 +642,9 @@ public class Raycast : MonoBehaviour
             //Hit LlaveDormitorio
             if (hit.transform.CompareTag("LlaveDormitorio"))
             {
-                    textoAgarrar.SetActive(true);
-                    if(Input.GetMouseButtonDown(0))
-                    {
+                textoAgarrar.SetActive(true);
+                if(Input.GetMouseButtonDown(0))
+                {
                     Debug.Log("ESTAS AGARRANDO LLAVE DORMITORIO");
                     hit.transform.SetParent(mano);
                     hit.transform.position = mano.position; //Mano = Spawn
@@ -655,24 +652,32 @@ public class Raycast : MonoBehaviour
                     manoOcupada = true;
                     agarrasteLlaveDormitorio = true;
                     agarraObjeto.Play();
-                    }
+                }
             }   
 
-            if(agarrasteLlaveDormitorio == true && hit.transform.CompareTag("PuertaDormitorio"))
+            if (hit.transform.CompareTag("PuertaDormitorio"))
             {
                 textoInteractuar.SetActive(true);
-                if(Input.GetKeyDown(KeyCode.E))
+                if (agarrasteLlaveDormitorio == true)
                 {
-                    Destroy(llaveDormitorioEnMano);
-                    aperturaPuertaDormitorio.SetBool("Open", true);
-                    abristePuertaDormitorio = true;
-                    if(sonoPuertaDormitorio == false && abristePuertaDormitorio == true)
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
                         puertaAbriendo.Play();
-                        sonoPuertaDormitorio = true;
+                        Destroy(llaveDormitorioEnMano);
+                        aperturaPuertaDormitorio.SetBool("Open", true);
+                        puertaDormitorio.enabled = false;
                     }
                 }
-
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        puertaCerrada.Play();
+                        textoPuerta2.SetActive(true);
+                        StartCoroutine("textoOFF");
+                    }
+                     
+                }
             }    
 
             //Hit Armario 2
@@ -1099,6 +1104,66 @@ public class Raycast : MonoBehaviour
                 
             }
 
+            //hit llave
+            if (hit.transform.CompareTag("Llave"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit llave armario
+            if (hit.transform.CompareTag("LlaveArmario"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit provincias
+            if (hit.transform.CompareTag("Provincias"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit ovalo escudo
+
+            if (hit.transform.CompareTag("OvaloEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit pica 
+
+            if (hit.transform.CompareTag("PicaEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit gorro frijio
+
+            if (hit.transform.CompareTag("GorroEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit manos escudo
+
+            if (hit.transform.CompareTag("ManosEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit laureles escudo
+
+            if (hit.transform.CompareTag("LaurelesEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
+            //hit sol escudo
+
+            if (hit.transform.CompareTag("SolEscudoNacional"))
+            {
+                textoAgarrar.SetActive(true);
+            }
+
             //HitPiano
             if (hit.transform.CompareTag("Piano"))
             {
@@ -1155,6 +1220,7 @@ public class Raycast : MonoBehaviour
             if (hit.transform.CompareTag("Mate"))
             {
                 textoInteractuar.SetActive(true);
+                textoAgarrar.SetActive(true);
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
@@ -1171,10 +1237,26 @@ public class Raycast : MonoBehaviour
                 textoInteractuar.SetActive(true);
             }
 
-            //Hit puerta salida
+            //HitPuertaEntrada
+            if (hit.transform.CompareTag("PuertaEntrada"))
+            {
+                textoInteractuar.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    textoEntrada.SetActive(true);
+                    StartCoroutine("textoOFF");
+                }
+            }
+
+            //HitPuertaSalida
             if (hit.transform.CompareTag("PuertaDeSalida"))
             {
                 textoInteractuar.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    textoSalida.SetActive(true);
+                    StartCoroutine("textoOFF");
+                }
             }
 
             //HitPuertaSalaMusica
@@ -1280,12 +1362,14 @@ public class Raycast : MonoBehaviour
 
     IEnumerator textoOFF()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(3f);
         textoRadio.SetActive(false);
         textoPuerta.SetActive(false);
         textoCaja.SetActive(false);
         textoMate.SetActive(false);
         textoBoton.SetActive(false);
         textoCajon.SetActive(false);
+        textoPuerta2.SetActive(false);
+        textoEntrada.SetActive(false);
     }
 }

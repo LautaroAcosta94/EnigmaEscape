@@ -9,10 +9,10 @@ public class PuzzleCuadroProvincias : MonoBehaviour
 
     //Puerta de salida
     public Animator aperturaPuertaSalida;
-    bool puertaSalidaAbierta = false;
-    public AudioSource puertaAbriendo;
+    bool puertaSalidaAbierta = false; 
     public AudioSource puertaCerrada;
     public GameObject textoSalida;
+    public GameObject puertaAbriendo;
 
     //Variables Raycast
 
@@ -413,7 +413,7 @@ public class PuzzleCuadroProvincias : MonoBehaviour
            && lrColocada == true && cataColocada == true && tucuColocada == true && sdeColocada == true && chaColocada == true
            && forColocada == true && salColocada == true && jujColocada == true)
         {
-            puertaAbriendo.Play();
+            puertaAbriendo.SetActive(true);
             Debug.Log("COMPLETASTE PUZZLE FINAL");
             aperturaPuertaSalida.SetBool("Open", true);
             puertaSalidaAbierta = true;

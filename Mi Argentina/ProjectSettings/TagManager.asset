@@ -59,6 +59,7 @@ TagManager:
   - PuertaDeSalida
   - PuertaDormitorio
   - LlaveDormitorio
+  - PuertaEntrada
   layers:
   - Default
   - TransparentFX
