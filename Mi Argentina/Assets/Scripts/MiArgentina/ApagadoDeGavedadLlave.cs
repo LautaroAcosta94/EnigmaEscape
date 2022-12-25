@@ -10,6 +10,8 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
 
     bool llaveEnMano = false;
 
+    GameObject llaveAgarrada;
+
     void Update()
     {
         ApagarGravedad();
@@ -26,8 +28,9 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
+                    llaveAgarrada = hit.transform.gameObject;
+                    llaveAgarrada.GetComponent<Rigidbody>().isKinematic = true;
+                    llaveAgarrada.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
                     llaveEnMano = true;
                 }
             }
@@ -36,8 +39,9 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
+                    llaveAgarrada = hit.transform.gameObject;
+                    llaveAgarrada.GetComponent<Rigidbody>().isKinematic = true;
+                    llaveAgarrada.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
                     llaveEnMano = true;
                 }
             }
@@ -46,9 +50,34 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
             {
                 if(Input.GetMouseButtonDown(0))
                 {
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
+                    llaveAgarrada = hit.transform.gameObject;
+                    llaveAgarrada.GetComponent<Rigidbody>().isKinematic = true;
+                    llaveAgarrada.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
                     llaveEnMano = true;
+                }
+            }
+
+            if(hit.transform.CompareTag("CajonConLlave") && llaveEnMano == true)
+            {
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    llaveEnMano = false;
+                }
+            }
+
+            if(hit.transform.CompareTag("PuertaArmario2") && llaveEnMano == true)
+            {
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    llaveEnMano = false;
+                }
+            }
+
+            if(hit.transform.CompareTag("PuertaDormitorio") && llaveEnMano == true)
+            {
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    llaveEnMano = false;
                 }
             }
         }
@@ -61,11 +90,15 @@ public class ApagadoDeGavedadLlave : MonoBehaviour
         {
             if(Input.GetMouseButtonUp(0))
             {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                gameObject.transform.SetParent(null);
-                gameObject.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
+                llaveAgarrada.GetComponent<Rigidbody>().isKinematic = false;
+                llaveAgarrada.transform.SetParent(null);
+                llaveAgarrada.transform.localScale = new Vector3(0.0770744f, 0.0770744f, 0.0770744f);
                 llaveEnMano = false;
             }
+        }
+        if(llaveEnMano == false)
+        {
+            llaveAgarrada = null;
         }
     }
 }
